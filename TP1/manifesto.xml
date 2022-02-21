@@ -1,8 +1,11 @@
 <meta>
 	<titulo>Japão</titulo>
-	<data></data>
-	<autor>Maria José Costa Ramos</autor>
+	<data>21 de fevereiro de 2022</data>
+	<autor>
+		<nome>Maria José Costa Ramos</nome>
+		<numero>pg47483</numero>
+	</autor>
 	<uc>Representação e Processamento de Conhecimento na Web</uc>
 </meta>
-<resumo></resumo>
-<ficheiros></ficheiros>
+<resumo>Página web sobre o Japão.</resumo>
+<ficheiros>japao.html</ficheiros>
