@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doc>
+    <meta>
+        <titulo>TPC1: uma página web</titulo>
+        <data>2022-02-15</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+
+    <resumo>
+        <p>Primeiro paragrafo.</p>
+        <p>Segundo paragráfo</p>
+        <p>Terceiro parágrafo a apontar para o <xref><url>xml.com</url><texto>xml</texto></xref>.</p>
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>jose.html</url>
+            <texto>Página Web</texto>
+        </resultado>
+        <resultado>
+            <url>jose.css</url>
+            <texto>Stylesheet do TPC</texto>     
+        </resultado>
+    </resultados>
+</doc>
