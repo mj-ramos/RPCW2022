@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <doc>
     <meta>
-        <titulo>TPC1: uma página web</titulo>
-        <data>2022-02-15</data>
+        <titulo>TPC2: Geração automática de páginas HTML e criação de servidor web</titulo>
+        <data>2022-02-08</data>
         <autor>
             <id>pg47483</id>
             <nome>Maria José Costa Ramos</nome>
@@ -13,20 +12,19 @@
             <nome>Representação e Processamento de Conhecimento na Web</nome>
         </uc>
     </meta>
-
     <resumo>
-        <p>Primeiro paragrafo.</p>
-        <p>Segundo paragráfo</p>
-        <p>Terceiro parágrafo a apontar para o <xref><url>xml.com</url><texto>xml</texto></xref>.</p>
+        <p>Dado um ficheiro JSON com informações sobre filmes, foi proposta a criação automática de páginas html: uma para cada filme do ficheiro de dados e uma página com os títulos dos filmes, bem como uma referência à página de cada um, organizados por ordem alfabética.</p>
+        <p>Opcionalmente, foi proposto um exercício análogo para os atores.</p>
+        <p>Para a realização deste trabalho, o ficheiro de dados foi lido uma vez e a informação relevante foi organizada em estruturas de dados. Posteriormente, essas estruturas de dados foram percorridas para gerar as várias páginas html.</p>
     </resumos>
     <resultados>
         <resultado>
-            <url>jose.html</url>
-            <texto>Página Web</texto>
+            <url>geraHtml.js</url>
+            <texto>Gera as páginas html. Gera duas pastas (atores e filmes) que contêm as páginas de cada filme/ator e dois ficheiros html (filmes.tml e atores.html) que reúnem o nome dos filmes/atores. </texto>
         </resultado>
         <resultado>
-            <url>jose.css</url>
-            <texto>Stylesheet do TPC</texto>     
+            <url>servidor.js</url>
+            <texto>Serve as páginas html</texto>     
         </resultado>
     </resultados>
 </doc>
