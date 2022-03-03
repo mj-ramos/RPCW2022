@@ -20,7 +20,7 @@
     <resultados>
         <resultado>
             <url>geraHtml.js</url>
-            <texto>Gera as páginas html. Gera duas pastas (atores e filmes) que contêm as páginas de cada filme/ator e dois ficheiros html (filmes.tml e atores.html) que reúnem o nome dos filmes/atores. </texto>
+            <texto>Gera as páginas html. Gera duas pastas (filmes e atores) que contêm as páginas de cada filme/ator, dois ficheiros html (filmes.html e atores.html) que reúnem o nome dos filmes/atores e o index.html. </texto>
         </resultado>
         <resultado>
             <url>servidor.js</url>
