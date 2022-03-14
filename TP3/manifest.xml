@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC3: Utilização de uma API de dados por um servidor</titulo>
+        <data>2022-03-14</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Dado um ficheiro JSON com informações sobre uma escola de música, foi proposta a criação de um servidor que utiliza uma API de dados (json-server) para aceder às informações acerca da escola. Essas informações incluem os alunos, os cursos e os instrumentos da escola.</p>
+        <p>O servidor obtém os dados dos recursos disponibilizados pelo json-server através de pedidos GET. </p>
+        <p>Posteriormente, apresenta, em diferentes páginas web, tabelas com informações relativas aos recursos: uma tabela para os alunos, uma para os cursos e uma para os instrumentos.</p>
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>servidor.js</url>
+            <texto>Servidor que disponibiliza as tabelas com informações sobre a escola e obtém os dados através de pedidos a uma API de dados.</texto>
+        </resultado>
+    </resultados>
+</doc>
