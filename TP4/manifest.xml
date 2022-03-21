@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC4: Servidor com To-do list</titulo>
+        <data>2022-03-21</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Para este trabalho foi proposta a criação de uma Single Page Application para toDo lists. Na página é apresentado um formulário para registo de novas tarefas, uma lista de tarefas pendentes e uma lista de tarefas concluídas.</p>
+        <p>As tarefas são guardadas num ficheiro json, cuja informação é acedida e atualizada por uma API de dados disponibilizada pelo json-server.</p>
+        <p>As funcionalidades implementadas incluem a adição de tarefas, edição de tarefas pendentes, resolução de tarefas (mudar estado de pendente para concluída) e eliminar tarefas concluídas.
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>server.js</url>
+            <texto>Servidor. Inclui toda a lógica de resposta a pedidos GET e POST e geração dinâmica da página web.</texto>
+            <url>toDo.json</url>
+            <texto>Ficheiro json com informação sobre as tarefas.</texto>
+            <url>static.js</url>
+            <texto>Módulo com funções utilizadas para servir os recursos estáticos que se encontram na pasta public.</texto>
+            <url>public</url>
+            <texto>Pasta com recursos estáticos do servidor.</texto>
+        </resultado>
+    </resultados>
+</doc>

@@ -1,0 +1,32 @@
+{
+  "tarefas": [
+    {},
+    {
+      "descricao": "Levar cão à rua",
+      "deadline": "30-04-2022",
+      "tipo": "Casa",
+      "quem": "Isabel",
+      "estado": "pendente",
+      "dataPublicacao": "2022-03-21",
+      "id": 10
+    },
+    {
+      "deadline": "22-03-2022",
+      "quem": "Clara",
+      "descricao": "Estudar Engenharia de Linguagens",
+      "tipo": "Universidade",
+      "dataPublicacao": "2022-03-21",
+      "estado": "concluida",
+      "id": 11
+    },
+    {
+      "deadline": "30-03-2022",
+      "quem": "Clara",
+      "descricao": "Estudar para teste",
+      "tipo": "Universidade",
+      "dataPublicacao": "2022-03-21",
+      "estado": "pendente",
+      "id": 12
+    }
+  ]
+}
