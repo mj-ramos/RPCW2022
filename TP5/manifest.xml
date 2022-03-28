@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC5: Servidor com listagem de informação num arquivo musical</titulo>
+        <data>2022-03-28</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Para este trabalho foi proposta a criação de uma aplicação web com a listagem da informação presente num arquivo musical. Este arquivo contém um conjunto de músicas e respetivos títulos, ficheiros, entre outras informações, e está no formato JSON.</p>
+        <p>O JSON disponibilizado encontrava-se mal formatado e com alguns campos preenchidos de forma irregular, por isso foi desenvolvido um pequeno script em python para a correção destes erros e, adicionalmente, associar a cada registo um identificador único.</p>
+        <p>O esqueleto da aplicação foi gerado utlizando o Express e os dados do dataset são acedidos fazendo pedidos REST via HTTP ao json-server.</p>
+        <p>A página principal da aplicação apresenta uma tabela com as músicas no dataset. É possível aceder a uma página individual para cada música clicando no seu nome; é também possível clicar numa província e obter a listagem de músicas dessa província.</p>
+        <p>Adicionalmente, como trabalho extra, foi proposta a criação de uma página com um formulário para a adição de uma nova música, o que também foi implementado.</p>
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>dataset/trataJSON.py</url>
+            <texto>Ficheiro que faz o tratamento do dataset. Transforma o arq-son-EVO-ANTIGO.json e produz um novo ficheiro, o arq-son-EVO.json.</texto>
+            <url>public</url>
+            <texto>Pasta gerada pelo Express. Contém recursos estáticos.</texto>
+            <url>views</url>
+            <texto>Pasta gerada pelo Express. Serve para a geração do HTML.</texto>
+            <url>routes</url>
+            <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
+        </resultado>
+    </resultados>
+</doc>
