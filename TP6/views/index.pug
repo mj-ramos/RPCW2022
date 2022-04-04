@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  .w3-bar.w3-orange
+    .w3-bar-item
+      i.fa-solid.fa-file-circle-plus 
+    button.w3-bar-item.w3-button 
+      a(href="#form-upload") Upload
+    button.w3-bar-item.w3-button 
+      a(href="#list-files") Ficheiros
+  .content
+    #form-upload.w3-card-4.w3-margin
+      header.w3-container(style="background-color:#003049; color:white")
+        h5
+          i.fa-solid.fa-upload(style="padding-right: 10px")
+          | Upload de ficheiro
+
+      form.w3-container(action="/" method="POST" enctype="multipart/form-data")
+        .w3-panel.w3-row-padding
+          label
+            h6 
+              b Selecione o ficheiro
+          .w3-col.s6
+            input.w3-input.w3-border.w3-round(type="file" name="uploadedFile") 
+          .w3-col.s6
+            input.w3-input.w3-border.w3-round(type="text" name="description" placeholder='Insira uma descrição do ficheiro' style="height:40px") 
+        .w3-panel
+          input.w3-button.w3-round(type="submit" value="Submeter" style="background-color:#FCBF49")
+
+    .w3-card-4.w3-margin
+      .header.w3-container.w3-top-bar.w3-topbar.w3-bottombar.w3-border-orange
+        h3.w3-center 
+          b Lista de ficheiros
+      #list-files.w3-container.w3-margin
+        table.w3-container.w3-margin-bottom.w3-table-all
+          tr(style="background-color:#003049; color:white")
+            th Data
+            th Nome 
+            th Tipo
+            th Tamanho
+            th Descrição
+            th
+          each file in files
+            tr 
+              td= file.date
+              td= file.name
+              td= file.mimetype
+              td= file.size
+              td
+                if file.description
+                  span= file.description
+                else
+                  span ---------
+              td 
+                form(action='/eliminar/'+file.name method='GET')
+                  input.w3-button.w3-circle.w3-red(type="submit" value="-")
+                  
+            
