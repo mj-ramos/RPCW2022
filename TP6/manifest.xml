@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc>
     <meta>
-        <titulo>TPC6: </titulo>
+        <titulo>TPC6: Upload de ficheiros</titulo>
         <data>2022-04-05</data>
         <autor>
             <id>pg47483</id>
@@ -13,13 +13,18 @@
         </uc>
     </meta>
     <resumo>
-        <p>Para este trabalho foi proposta a criação de uma aplicação web com a listagem  </p>
+        <p>Para este trabalho foi proposta a criação de uma aplicação web com duas funcionalidades principais: upload de ficheiros e listagem dos ficheiros uploaded.</p>
+        <p>Ao fazer upload de um ficheiro é possível preencher um campo do formulário com uma descrição. O ficheiro será guardado numa pasta no servidor e a meta informação sobre o mesmo será guardada num ficheiro json, também gerido pelo servido.</p>
+        <p>Na lista dos ficheiros uploaded existe uma opção de eliminar o ficheiro, o que faz com que ele deixe de ser visível na lista, para o utilizador, mas continua guardado do lado do servidor.</p>
     </resumos>
     <resultados>
         <resultado>
-            <url>uploads</url>
-            <texto></texto>
+            <url>dbFiles.json</url>
+            <texto>Ficheiro JSON onde são guardadas informações sobre os ficheiros.</texto>
+            <url>public</url>
+            <texto>Pasta onde os ficheiros são uploaded.</texto>
             <url>fileStore></url>
+            <texto>Pasta onde o servidor guarda os ficheiros uploaded.</texto>
             <url>public</url>
             <texto>Pasta gerada pelo Express. Contém recursos estáticos.</texto>
             <url>views</url>
