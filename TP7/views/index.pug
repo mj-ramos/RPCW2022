@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  .w3-container.w3-cyan
+    .w3-margin
+      h1(style='text-shadow:1px 1px 0 #444').w3-text-white CLAV
+  .w3-card.w3-margin(style='padding-bottom:10px')
+      .w3-container.w3-light-gray
+        h2(style='text-shadow:1px 1px 0 #444').w3-text-cyan
+          b Classificação e Avaliação da Informação Pública
+      .w3-container.w3-margin
+        p(style='text-align: justify') A CLAV é uma plataforma em desenvolvimento no DI/UM em parceria e sob encomenda da Direção Geral do Livro, Arquivos e Bibliotecas (DGLAB) que visa a classificação e a avaliação de toda a documentação circulante na administração pública portuguesa.
+        | Disponibiliza informação, orientações e ferramentas que facilitam e normalizam as práticas de classificação e avaliação da informação pública.
+        p(style='text-align: justify') Esta plataforma destina-se a entidades da Administração Pública, a empresas públicas e a outras entidades de Portugal Continental e permite a interação entre estas e a DGLAB.
+        p(style='text-align: justify') É igualmente destinada ao cidadão, particularmente através da disponibilização do catálogo de processos de negócio da Administração Pública, que integra a Lista Consolidada.
+
+    
+  .w3-container(style='padding-top:20px')
+    .w3-panel.w3-light-gray.w3-margin.w3-round(style='padding-bottom:20px')  
+      h3(style='text-shadow:1px 1px 0 #444').w3-text-light-blue
+        b Lista Consolidada 
+      table.w3-container.w3-table-all
+        tr.w3-light-blue
+          th Título
+          th Código
+
+          each c in classe1 
+            tr 
+              td= c.titulo
+              td
+                a(href='http://localhost:3012/'+c.codigo)= c.codigo
+
+    
+  .footer.w3.container.w3-cyan
+      address 2022 © Maria Ramos
+
+
+        

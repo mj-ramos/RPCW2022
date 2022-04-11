@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    .w3-container.w3-cyan
+        .w3-row
+            .w3-col.s10
+                h3(style='text-shadow:1px 1px 0 #444').w3-text-white
+                    b= codigo
+            .w3-col.s1(style='padding-top:10px') 
+                .button.w3-button.w3-gray.w3-border-white.w3-text-white(style='text-shadow:1px 1px 0 #444') 
+                    a(href='http://localhost:3012') Início
+            .w3-col-s1(style='padding-top:10px') 
+                form
+                    input.w3-button.w3-gray.w3-border-white.w3-text-white(type="button" value='Voltar' onclick='history.back()' style='text-shadow:1px 1px 0 #444')
+
+    .w3.container.w3-margin
+        h2
+            b(style='text-shadow:1px 1px 0 #444').w3-text-cyan= titulo
+        
+        .w3-panel.w3-light-gray
+            h6
+                b Nível #{nivel}
+        
+        .w3-panel.w3-light-gray
+            h5
+                b Descrição
+            p(style='text-align: justify')= descricao
+
+        if descendentes!=undefined && descendentes.length!=0
+            .w3-container(style='padding-top:20px')     
+                .w3-card
+                    .w3-container.w3-margin                
+                        h4 
+                            b Descendentes
+
+                        table.w3-container.w3-margin-bottom.w3-table-all
+                            tr.w3-light-blue
+                                th Título
+                                th Código
+
+                            each d in descendentes 
+                                tr 
+                                    td= d.titulo
+                                    td
+                                        a(href='http://localhost:3012/'+d.codigo)= d.codigo
+
+        if relacionados!=undefined && relacionados.length!=0
+            .w3-container  
+                .w3-card
+                    .w3-container.w3-margin
+                        
+                        h4 
+                            b Relacionados
+
+                        table.w3-container.w3-margin-bottom.w3-table-all
+                            tr.w3-light-blue
+                                th Título
+                                th Código
+                                th Relacionamento
+
+                            each r in relacionados 
+                                tr 
+                                    td= r.titulo
+                                    td
+                                        a(href='http://localhost:3012/'+r.codigo)= r.codigo
+                                    td= r.idRel
+
+    .footer.w3.container.w3-cyan
+        address 2022 © Maria Ramos
+

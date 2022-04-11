@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC7: CLAV - Classificação e Avaliação da Informação Pública </titulo>
+        <data>2022-04-12</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Para este trabalho foi proposta a resolução do exercício 2 da ficha em <url>https://www4.di.uminho.pt/~jcr/AULAS/didac/RepFichas/site/fichas/pri-2021-normal.html</url>.</p>
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>public</url>
+            <texto>Pasta onde os ficheiros são uploaded.</texto>
+            <url>views</url>
+            <texto>Pasta gerada pelo Express. Serve para a geração do HTML.</texto>
+            <url>routes</url>
+            <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
+        </resultado>
+    </resultados>
+</doc>
