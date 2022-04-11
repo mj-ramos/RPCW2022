@@ -29,7 +29,6 @@ router.get('/:codigo', function(req, res, next) {
         axios.get(`http://clav-api.di.uminho.pt/v2/classes/c${dados.codigo}/procRel/?apikey=${key}`)
           .then(response1 => {
             var relacionados = (response1.data).filter(rel => rel.idRel=='eCruzadoCom' || rel.idRel=='eComplementarDe' || rel.idRel=='eSuplementoDe' || rel.idRel=='eSuplementoPara')
-            console.log(relacionados)
             res.render('codigo', {codigo: dados.codigo, titulo: dados.titulo, descricao: dados.descricao, nivel: dados.nivel, descendentes: dados.filhos, relacionados: relacionados})
           })
           .catch(erro => {
