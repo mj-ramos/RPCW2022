@@ -21,14 +21,24 @@
         <resultado>
             <url>dbFiles.json</url>
             <texto>Ficheiro JSON onde são guardadas informações sobre os ficheiros.</texto>
-            <url>public</url>
+        </resultado>
+        <resultado>
+            <url>uploads</url>
             <texto>Pasta onde os ficheiros são uploaded.</texto>
+        </resultado>
+        <resultado>
             <url>fileStore></url>
             <texto>Pasta onde o servidor guarda os ficheiros uploaded.</texto>
+        <resultado>
+        </resultado>
             <url>public</url>
             <texto>Pasta gerada pelo Express. Contém recursos estáticos.</texto>
+        </resultado>
+        <resultado>
             <url>views</url>
             <texto>Pasta gerada pelo Express. Serve para a geração do HTML.</texto>
+        </resultado>
+        <resultado>
             <url>routes</url>
             <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
         </resultado>

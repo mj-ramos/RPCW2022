@@ -23,10 +23,16 @@
         <resultado>
             <url>dataset/trataJSON.py</url>
             <texto>Ficheiro que faz o tratamento do dataset. Transforma o arq-son-EVO-ANTIGO.json e produz um novo ficheiro, o arq-son-EVO.json.</texto>
+        </resultado>
+        <resultado>
             <url>public</url>
             <texto>Pasta gerada pelo Express. Contém recursos estáticos.</texto>
+        </resultado>
+        <resultado>
             <url>views</url>
             <texto>Pasta gerada pelo Express. Serve para a geração do HTML.</texto>
+        </resultado>
+        <resultado>
             <url>routes</url>
             <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
         </resultado>
