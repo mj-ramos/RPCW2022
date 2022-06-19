@@ -7,3 +7,17 @@ A aplicação a desenvolver deverá ter todas as caraterísticas de uma aplicaç
 informação pública e privada, possibilidade de comentar os recursos disponíveis, notificações, e todas as outras
 operações e funcionalidades que a imaginação dos alunos conseguir criar.  
 
+## Para iniciar
+
+### auth-server
+npm i 
+npm start
+
+### api-server
+npm i 
+npm start
+
+### app-server
+npm i 
+npm start
+
