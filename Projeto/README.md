@@ -10,14 +10,14 @@ operações e funcionalidades que a imaginação dos alunos conseguir criar.
 ## Para iniciar
 
 ### auth-server
-npm i 
-npm start  
+npm i   
+npm start
 
 ### api-server
-npm i 
+npm i  
 npm start  
 
 ### app-server
-npm i 
+npm i   
 npm start
 
