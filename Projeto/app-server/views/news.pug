@@ -1,0 +1,101 @@
+extends layout
+
+block content
+    div#info_news.content-div.w3-animate-bottom(style='margin: 0 5% 50px;')
+        br
+        h1(style='font-family: Akshar,sans-serif;') Notícias 
+        p#cookie
+
+
+        .w3-container.w3-panel(style='border-bottom: 1px solid black; height:75px;padding-top:20px')
+            .w3-bar.w3-white
+                if login && login.level == 'admin'
+                    button#op_adicionar.w3-button(style='background-color:#f9ac63; font-size:13px;')
+                        i(class='fa-solid fa-plus' style='padding-right:8px') 
+                        | Adicionar notícia
+                form.w3-right(action='/noticias' method='get')
+                    input.w3-bar-item.w3-mobile.w3-input.w3-border(type="text" placeholder="Pesquise uma notícia..." name='q' value=query style='font-size:13px')
+                    button.w3-bar-item.w3-mobile.w3-button.w3-blue-gray(type='submit' value='pesquisa' style='height:37.5px')
+                        i(class='fa-solid fa-search')
+
+        #news-list.w3-container
+            if news.length
+                each n in news
+                    if n.visibility || (login && login.level == 'admin')
+                        div.w3-card-4.w3-section
+                            header.w3-container.w3-blue-gray
+                                h3.w3-left= n.title
+                                if login && login.level=='admin'
+                                    .w3-dropdown-hover.w3-right(style='margin: 10px 0;')
+                                        button.w3-button(style='border: 1px solid #D8D8D8; font-size:13px; pointer-events: none;') Opções ⌵
+                                        .w3-dropdown-content.w3-bar-block.w3-card-4
+                                            a(style='text-decoration: none;' href='/noticias/eliminar/' + n._id)
+                                                button.delete-news.w3-bar-item.w3-mobile.w3-button(style='font-size: 16px; text-decoration: none;')
+                                                    i(class='fa-solid fa-xmark' style='padding-right:8px') 
+                                                    | Eliminar
+                                            button.edit-news.w3-bar-item.w3-mobile.w3-button(style='font-size: 16px;' data=n)
+                                                i(class='fa-solid fa-pen-to-square' style='padding-right:8px') 
+                                                | Editar
+                                
+                            div.w3-container.w3-section(style='white-space: pre-wrap;')= n.content
+                            
+                            footer.w3-container.w3-center
+                                .w3-margin-left.w3-margin-right(style='font-size: 12px; display: inline-block;') Criado em #{n.created.replace('T', ' ')}
+                                .w3-margin-left.w3-margin-right(style='font-size: 12px; display: inline-block;') Modificado em #{n.last_modified.replace('T', ' ')} 
+            
+            else
+                p 
+                    b Sem notícias disponíveis...
+                    i(class="fa-regular fa-face-frown fa-2xl" style='padding-left:10px') 
+
+
+        if login && login.level == 'admin'
+            #news-modal.w3-modal
+                .w3-modal-content.w3-animate-top.w3-card-4
+                    .w3-panel(style='background-color:#5E9FA2; height:31px')
+                        p.w3-text-white(style='margin-top:5px') Nova Notícia
+                        i#close-form.w3-button.w3-display-topright(class='fa-solid fa-x')
+                    .w3-container
+                        form#news-form(method='post' action='/noticias')
+                            p
+                                b Título:
+                                input(type='text' id='form-title' name='title' style='width:100%;' required)                                  
+                            p
+                                b Conteúdo:
+                                textarea(id='form-content' name='content' rows="5" style='width:100%; resize: none;' required)
+                            p
+                                input(type='checkbox' id='form-visibility' name='visibility' style="margin-right: 5px;" checked)
+                                b Visível
+                            p
+                                input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+
+    include includes/footer
+
+
+    if login && login.level == 'admin'
+        script.
+            $(document).ready(function(){   
+                $('#op_adicionar').on('click', function() {
+                    $('#news-modal').css('display','block');
+                });            
+                
+                $('.edit-news').on('click', function() {
+                    var data = JSON.parse($(this).attr('data'));
+
+                    $('#news-form').attr('action', '/noticias/' + data._id)
+                    $('#form-title').val(data.title)
+                    $('#form-content').val(data.content)
+                    $('#form-visibility').prop('checked', data.visibility);
+
+                    $('#news-modal').css('display','block');
+                });
+
+                $('#close-form').on('click', function() {
+                    $('#news-form').attr('action', '/noticias')
+                    $('#form-title').val('')
+                    $('#form-content').val('')
+                    $('#form-visibility').prop('checked', true);
+
+                    $('#news-modal').css('display','none');
+                });
+            });

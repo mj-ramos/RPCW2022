@@ -1,0 +1,55 @@
+doctype html
+html
+  include includes/head.pug    
+            
+  body
+    div(class='barra-topo' style='height:45px')
+      .w3-top(style='height:45px')
+        .w3-bar(style='background-color:#5E9FA2')
+          .w3-bar-item.w3-button.w3-mobile.w3-white.w3-hover-white
+            a(href='/')
+              img(src='images/logo.png' style='height:27px; width: 85px')
+          a#nav_inicio.w3-bar-item.w3-button.w3-mobil.w3-text-white.w3-hover-white(href='/') Início
+
+    .content-div.w3-container
+      .w3-card.w3-display-middle(style='width:40%;height:60%; margin:auto; background: rgb(213,163,94);background: linear-gradient(6deg, rgba(123,206,187,0.2) 7%, rgba(249,172,99,0.15) 100%);')
+          header
+              h4.w3-center(style='padding-top:15px; color:#5E9FA2') 
+                  b(style='font-family: Roboto Flex, sans-serif;') Login 
+          .w3-container.w3-margin
+              form#form-login
+                  label Username
+                  input#username-login.w3-input.w3-border-0(type='text' name='username' required)
+                  label Palavra-passe
+                  input#password-login.w3-input.w3-border-0(type='password' name='password' required)
+                  
+                  p#erro-login(style='font-size:16px; color: red;') 
+
+                  p 
+                    a(href='/registar' style='color:#EF883C') Não tem conta? Registe-se aqui.
+                  br
+                  input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+                  a.w3-button.w3-text-white(href='/' style='background-color:#5E9FA2; margin-left:30px') Cancelar
+                  br 
+                  br
+                  br
+      
+    include includes/footer
+
+    script.
+      $(document).ready(function(){
+          
+        $('#form-login').on('submit', function() {
+          var user = {
+            'username': $('#username-login').val().trim(),
+            'password': $('#password-login').val()
+          }
+
+          $.post('/login', user)
+          .done(function(data, textStatus, xhr) { location.replace('/repositorio'); })
+          .fail(function(xhr, textStatus, errorThrown) { $('#erro-login').text(errorThrown); });
+
+          return false;
+        });
+        
+      });

@@ -1,0 +1,205 @@
+extends ../layout
+
+block content
+    if folder.folders 
+        -var folders = folder.folders
+        -var sipUser = folder.user
+        -var isSip = true
+    else 
+        -var folders = folder.subfolders
+        -var sipUser = folder.sip.user
+        -var isSip = false
+
+    include ../includes/barra-lateral
+    
+    div#info_recursos.w3-animate-opacity(style='margin-left:20%')
+        br
+        h1(style='font-family: Akshar,sans-serif;') Submissões Recursos Didáticos 
+        
+        .w3-container.w3-panel(style='border-bottom: 1px solid black; width:90%; height:70px;padding-top:20px')
+            if (isSip)
+                a.w3-button.w3-round(href='/download/sip/'+folder._id+'?name='+folder.name style='background-color:#72A9A3;') Download
+                       
+
+        br
+        .w3-container(style='width:80%;padding-top:5px;padding-bottom:25px')
+    
+            if (folder.files.length==0 && folders.length==0)
+                p 
+                    b Sem recursos disponíveis...
+                    i(class="fa-regular fa-face-frown fa-2xl" style='padding-left:10px') 
+
+            else
+                table.w3-table.w3-bordered.w3-border.w3-hoverable
+                    tr(style='background-color:#ABD8D3')
+                        th Nome
+                        th Título
+                        th Data criação
+                        th Produtor 
+                        th Tipo
+                        th
+                        th 
+                        th 
+
+                   
+                    each item in folders
+                        tr.w3-hover-light-gray(style='background-color:#DDECEA' id='folder-' + item._id)
+                            td
+                                a(href= '/repositorio/pastas/' + item._id)
+                                    i(class="fa-solid fa-folder" style='padding-right:8px') 
+                                    | #{item.name}
+                            td
+                            td
+                            td
+                            td
+                            td 
+                            td
+                                a.w3-button.w3-round(href='/download/folder/'+ item._id + '?name=' + item.name+'.zip' style='background-color:#72A9A3') 
+                                    i(class="fa-solid fa-download")
+
+                            td
+                                if login
+                                    if login.level=='admin' || sipUser == login.username
+                                        .w3-dropdown-hover
+                                            button.w3-button(style='background-color:#D8D8D8; font-size:13px; pointer-events: none;') Opções ⌵
+                                            .w3-dropdown-content.w3-bar-block.w3-card-4
+                                                button.remove-folder.w3-bar-item.w3-mobile.w3-button(id=item._id style='font-size: 16px;')
+                                                    i(class='fa-solid fa-xmark' style='padding-right:8px') 
+                                                    | Eliminar
+
+                                                           
+ 
+                                
+                    each file in folder.files
+                        tr.w3-hover-light-gray(id='file-' + file._id)
+                            td
+                                a(href= '/repositorio/recursos/' + file._id)
+                                    i(class="fa-solid fa-file" style='padding-right:8px') 
+                                    | #{file.file_name}
+                            td= file.title
+                            td= file.date_creation
+                            td= file.producer
+                            td= file.type
+                            td    
+                                button.see-file.w3-button.w3-round(id=file.file_name+'-'+file._id style='background-color:#FFC15E')
+                                    i(class="fa-regular fa-eye")   
+                            td 
+                                a.w3-button.w3-round(href='/download/recurso/'+ file._id + '?name=' + file.file_name style='background-color:#72A9A3') 
+                                    i(class="fa-solid fa-download")
+                            
+                                .see-file-modal.w3-modal(id=file._id)
+                                    .w3-modal-content.w3-animate-top.w3-card-4
+                                        .w3-panel(style='background-color:#5E9FA2; height:31px')
+                                            i.close-modal.w3-button.w3-display-topright(id=file._id class='fa-solid fa-x') 
+                                            p 
+                                        .w3-container 
+                                            if (file.mimetype=='application/xml') 
+                                                textarea#xml-div(cols="80" rows="10" readonly) 
+                                            else
+                                                object(type=file.mimetype data='/files/'+file.file_name width="850" height="380")
+                            td 
+                                if login
+                                    if login.level=='admin' || sipUser == login.username
+                                        .w3-dropdown-hover
+                                            button.w3-button(style='background-color:#D8D8D8; font-size:13px; pointer-events: none;') Opções ⌵
+                                            .w3-dropdown-content.w3-bar-block.w3-card-4
+                                                button.remove-file.w3-bar-item.w3-mobile.w3-button(id=file._id style='font-size: 16px;')
+                                                    i(class='fa-solid fa-xmark' style='padding-right:8px') 
+                                                    | Eliminar
+                                                button.edit-file-name.w3-bar-item.w3-mobile.w3-button(id=file._id style='font-size: 16px;')
+                                                    i(class='fa-solid fa-pen-to-square' style='padding-right:8px') 
+                                                    | Editar    
+                                        .edit-name.w3-modal(id=file._id)
+                                            .w3-modal-content.w3-animate-top.w3-card-4
+                                                .w3-panel(style='background-color:#5E9FA2; height:31px')
+                                                    i.close-modal.w3-button.w3-display-topright(id=file._id class='fa-solid fa-x')
+                                                .w3-container
+                                                    h2 Edição
+                                                    p
+                                                        form(method='post' action='/recursos/' + file._id + '/editar')
+                                                            input(type="hidden" name="path" value=file.path)
+                                                            input(type='hidden' name='mimetype' value=file.mimetype)
+                                                            input(type='hidden' name='id_sip' value=file.id_sip)
+                                                            input(type='hidden' name='date_creation' value=file.date_creation)
+
+                                                            p
+                                                                b Novo nome:
+                                                                input(type='text' value=file.file_name name='file_name' pattern='[a-zA-Z0-9][a-zA-Z0-9\\-_]{1,25}\.'+(file.file_name).split('.')[1] title='Não altere o tipo do ficheiro.\nO novo nome apenas pode conter os símbolos - e _ e deve começar por uma letra ou um número.' style='margin-left:5px')    
+                                                            p
+                                                                b Nova descrição:
+                                                                input(type='text' value=file.desc name='desc' style='margin-left:5px')                                                                                                             
+                                                            p
+                                                                b Novo título:
+                                                                input(type='text' value=file.title name='title' style='margin-left:5px')                                                                
+                                                            p
+                                                                b Novo tipo:
+                                                                input(type='text' value=file.type name='type' style='margin-left:5px')  
+                                                            p
+                                                                b Novo produtor:
+                                                                input(type='text' value=file.producer name='producer' style='margin-left:5px')  
+                                                            
+                                                            p
+                                                                input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+            
+            if (!isSip)
+                a.w3-button.w3-round(href='/repositorio/sips/' + folder.sip._id style='background-color:#D8D8D8; font-size:13px; margin-top:20px; margin-right:6px') ZIP de origem
+                if (folder.id_parent == folder.sip._id)
+                    a.w3-button.w3-round(href='/repositorio/sips/' + folder.sip._id style='background-color:#D8D8D8;font-size:13px; margin-top:20px;') Voltar
+                else
+                    a.w3-button.w3-round(href='/repositorio/pastas/'+folder.id_parent style='background-color:#D8D8D8;font-size:13px; margin-top:20px;') Voltar
+            else 
+                a.w3-button.w3-round(href='/repositorio' style='background-color:#D8D8D8;font-size:13px; margin-top:20px;') Voltar
+
+                  
+    include ../includes/upload
+    
+
+
+    script.
+        $(document).ready(function(){  
+
+            $('.remove-file').on('click', function() {
+                var id = $(this).attr('id');
+                $.get('/recursos/' +  id + '/eliminar', function(result) {
+                    $('#file-' + id).remove();                    
+                });
+            });
+
+            $('.remove-folder').on('click', function() {
+                var id = $(this).attr('id');
+                $.get('/folders/' +  id + '/eliminar', function(result) {
+                    $('#folder-' + id).remove();                    
+                });
+            });
+
+
+            $('.edit-file-name').on('click', function() {
+                var id = $(this).attr('id');
+                $('#file-' + id + ' .edit-name').css('display','block');
+            });
+
+            $('.close-modal').on('click', function() {
+                var id = $(this).attr('id');
+                $('#file-' + id + ' .edit-name').css('display','none');
+                $('#file-' + id + ' .see-file-modal').css('display','none');
+            });
+
+            $('.see-file').on('click', function() {
+                var name_id = ($(this).attr('id')).split('-');
+                $.get('/download/ver/recurso/'+name_id[1]+'?name='+name_id[0], function(data) {
+                    console.log('Ok');
+                    if (name_id[0].split('.')[1] == 'xml') {
+                        $( "#xml-div" ).load( '/files/'+name_id[0] );
+                    }
+                    $('#file-' + name_id[1] + ' .see-file-modal').css('display','block');
+                })
+                                
+            });
+
+
+
+        });
+
+
+
+

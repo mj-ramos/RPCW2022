@@ -1,0 +1,58 @@
+#barra_lateral.w3-sidebar.w3-bar-block.w3-light-gray.w3-animate-opacity(style='width: 17%; z-index: auto;')
+    br
+    br
+
+    if login 
+        a(href='/repositorio' style='text-decoration:none')
+            button#op_recursos.w3-bar-item(style='cursor: pointer;')
+                i(class='fa-solid fa-folder-open' style='padding-right:8px') 
+                | Submissões
+
+        a(href='/repositorio?mine=1' style='text-decoration:none')
+            button#op_meus_recursos.w3-bar-item(style='cursor: pointer')
+                i(class='fa-solid fa-user' style='padding-right:8px') 
+                | As minhas submissões
+            
+        if login.level=='admin'
+            br
+            a(href='/users' style='text-decoration:none')
+                button#op_gestao_utilizadores.w3-bar-item(style='cursor: pointer;')
+                    i(class='fa-solid fa-users' style='padding-right:8px') 
+                    | Gestão de utilizadores
+
+            a(href='/noticias' style='text-decoration:none')  
+                button#op_gestao_noticias.w3-bar-item(style='cursor: pointer;')
+                    i(class='fa-solid fa-newspaper' style='padding-right:8px') 
+                    | Gestão de notícias
+                    
+            a(href='/stats' style='text-decoration:none')
+                button#op_gestao_recursos.w3-bar-item(style='cursor: pointer;')
+                    i(class='fa-solid fa-chart-line' style='padding-right:8px') 
+                    | Estatísticas de utilização
+            
+        br
+        button#op_upload.w3-bar-item.w3-round(style='background-color:#D4DEDC; cursor: pointer;') 
+            i(class="fa-solid fa-upload" style='padding-right:8px') 
+            | Novo upload
+
+
+script.
+  $(document).ready(function(){
+
+    $("#op_upload").click(function(){
+        $("#info_recursos").hide();
+        $("#upload_recursos").show();
+
+        //Remove ficheiro selecionado e texto de resposta
+        cloned = $("#SIP").clone(true);
+        cloned.val("");
+        $("#SIP").replaceWith(cloned);
+        $("#res_upload").text("");
+
+    });
+
+    $("#op_recursos").click(function(){
+        $("#info_recursos").show();
+        $("#upload_recursos").hide();
+    });
+  });

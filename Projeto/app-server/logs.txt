@@ -1,0 +1,7 @@
+GET / 200 7579 - 86.997 ms
+GET /stylesheets/style.css 200 23427 - 10.546 ms
+GET /javascripts/repositorio.js 200 1208 - 10.386 ms
+GET /javascripts/jquery-3.6.0.min.js 200 89501 - 11.421 ms
+GET /images/logo.png 200 9806 - 1.254 ms
+GET /images/background.png 200 54577 - 3.872 ms
+GET /images/favicon.ico 200 7849 - 1.542 ms

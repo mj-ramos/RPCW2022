@@ -1,0 +1,57 @@
+extends layout
+
+block content
+    .w3-container.w3-margin
+        h1
+             b(style='font-family: Akshar,sans-serif') Metainformação
+        p Por favor preencha os seguintes formulários acerca dos ficheiros que fez upload. 
+        p Caso não o faça estes não serão guardados.
+
+    .w3-container(style='padding-left:40px')
+        form(method='post' action='/meta/upload') 
+            input(type="hidden" name="ficheiros" value=ficheiros)
+            input(type="hidden" name="sip" value=sip)
+            each ficheiro in ficheiros
+                - var titleSuggestion = ficheiro.split('/')
+                - titleSuggestion = titleSuggestion[titleSuggestion.length-1].split('.')[0]
+                - var today = new Date().toISOString().slice(0, 10)
+                br 
+                .w3-card.w3-light-gray(style='width:50%;')
+                    .w3-panel.w3-blue-gray
+                        h3(style='font-family: Akshar,sans-serif')= ficheiro
+                    .w3-container
+                        label 
+                            b Título
+                        input.w3-input.w3-border-0(type='text' value=titleSuggestion placeholder='Escreva um título...' name='title[]' required)
+                        br
+                        label 
+                            b Tipo de Recurso: &nbsp;
+                        select.w3-border-0(name='type[]')
+                            option(value='Outro' selected) Outro
+                            option(value='Ficha') Ficha
+                            option(value='Teste') Teste
+                            option(value='Exame de Recurso') Exame de Recurso
+                            option(value='Apontamentos') Apontamentos
+                            option(value='Slides') Slides
+                            option(value='Livro') Livro
+                            option(value='Gravação') Gravação
+                            option(value='Imagem') Imagem
+                        br
+                        br
+                        label 
+                            b Descrição
+                        input.w3-input.w3-border-0(type='text' name='desc[]')
+                        br
+                        label 
+                            b Data de Criação
+                        input.w3-input.w3-border-0(type='date' value=today name='date_creation[]')
+                        br
+                        label 
+                            b Produtor
+                        input.w3-input.w3-border-0(type='text' value=login.name placeholder='Escreva um nome...' name='producer[]' required)
+                        br
+
+            .w3-container.w3-margin(style='padding-bottom:20px')
+                input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+                a.w3-button.w3-text-white(href='/meta/cancelar?sip='+sip style='background-color:#5E9FA2; margin-left:30px') Cancelar
+

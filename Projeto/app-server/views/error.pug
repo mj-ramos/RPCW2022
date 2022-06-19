@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .w3-container.w3-margin.content-div
+    if error.response && error.response.status == 401
+      h3 Não está autorizado para realizar essa operação.
+    else 
+      h2= message
+      h3= error
+
+  include includes/footer
+

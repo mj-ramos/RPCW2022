@@ -1,0 +1,63 @@
+extends layout
+
+block content
+    include includes/barra-lateral
+
+    div#info_recursos.w3-animate-bottom(style='margin-left:20%')
+        br
+        h1(style='font-family: Akshar,sans-serif;') Estatísticas de Utilização
+
+        .w3-container.w3-panel(style='border-bottom: 1px solid black; width:90%; height:75px;padding-top:20px')
+            .w3-bar.w3-white
+                .w3-dropdown-hover
+                    button.w3-button(style='background-color:#f9ac63; font-size:13px') Ver ⌵
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        a.w3-bar-item.w3-mobile.w3-button(href='/stats') Ficheiros
+                        a.w3-bar-item.w3-mobile.w3-button(href='/stats/sips') ZIPS
+                if (type=='files')
+                    .w3-dropdown-hover(style="padding-left:5px")
+                        button.w3-button(style='background-color:#f9ac63; font-size:13px;') Organizar por ⌵
+                        .w3-dropdown-content.w3-bar-block.w3-card-4
+                            a.w3-bar-item.w3-mobile.w3-button(href='?sort=downloads') Downloads
+                            a.w3-bar-item.w3-mobile.w3-button(href='?sort=visuals') Visualizações
+
+        br
+        
+        table.w3-table.w3-bordered.w3-border.w3-hovered(style='width:80%')
+            
+            if (type=='files')
+                tr(style='background-color:#ABD8D3')
+                    th Ficheiro
+                    th Downloads
+                    th Visualizações
+
+                each d in data
+                    tr.w3-hover-light-gray
+                        td(style='background-color:#DDECEA')
+                            if (d.name!='')
+                                a(href= '/repositorio/recursos/' + d.id)
+                                    i(class="fa-solid fa-file" style='padding-right:8px') 
+                                    | #{d.name}
+                            else
+                                i(class="fa-solid fa-file" style='padding-right:8px') 
+                                | [Ficheiro Eliminado]
+                        td= d.downloads
+                        td= d.visuals
+            else 
+                tr(style='background-color:#ABD8D3')
+                    th ZIP
+                    th Downloads
+                        
+                each d in data
+                    tr.w3-hover-light-gray
+                        td(style='background-color:#DDECEA')
+                            if (d.name!='')
+                                a(href= '/repositorio/recursos/' + d.id)
+                                    i(class="fa-solid fa-folder-tree" style='padding-right:8px') 
+                                    | #{d.name}
+                            else
+                                i(class="fa-solid fa-folder-tree" style='padding-right:8px') 
+                                | [ZIP Eliminado]
+                        td= d.downloads
+    br
+    include includes/upload

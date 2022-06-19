@@ -1,0 +1,155 @@
+extends layout
+
+block content
+    include includes/barra-lateral.pug
+
+    div#info_recursos.w3-animate-bottom(style='margin-left:20%')
+        br
+        h1(style='font-family: Akshar,sans-serif;') Gestão de Utilizadores
+
+        #userList.w3-container(style='border-top: 1px solid black; width:80%')
+            br
+            .w3-bar.w3-white(style='margin: 10px 0px')
+                form.w3-right(action='/users' method='get')
+                    input#pesquisa_user.w3-bar-item.w3-mobile.w3-input.w3-border(type="text" placeholder="Pesquise por um utilizador..." name='user' style='font-size:13px')
+                    button.w3-bar-item.w3-mobile.w3-button.w3-blue-gray(type='submit' value='pesquisa' style='height:37.5px')
+                        i(class='fa-solid fa-search')
+                br
+            
+            table.w3-table.w3-bordered.w3-border.w3-hovered
+                tr(style='background-color:#ABD8D3')
+                    th Utilizador
+                    th Nome
+                    th Email
+                    th Tipo
+                    th 
+                    th
+                
+                each user in users
+                    if (user.deleted == false)
+                        if (user.level == 'admin')
+                            tr.w3-hover-light-gray(id=`show_${user._id}`)
+                                td
+                                    b= user.username
+                                td
+                                    b= user.name        
+                                td
+                                    b= user.email
+                                td
+                                    b= user.level
+                                td 
+                                    .w3-button.w3-round(id=`edit_${user._id}` style='background-color:#D8D8D8')
+                                        i(class="fa fa-pencil")
+                                if (user.username != login.username)
+                                    td       
+                                        a.w3-button.w3-round(href=`/users/delete/${user._id}` style='background-color:#D8D8D8')
+                                            i(class="fa fa-trash")
+                                else 
+                                    td
+                        else
+                            tr.w3-hover-light-gray(id=`show_${user._id}`)
+                                td= user.username
+                                td= user.name
+                                td= user.email
+                                td= user.level
+                                td
+                                    .w3-button.w3-round(id=`edit_${user._id}` style='background-color:#D8D8D8')
+                                        i(class="fa fa-pencil")
+                                td       
+                                    a.w3-button.w3-round(href=`/users/delete/${user._id}` style='background-color:#D8D8D8')
+                                        i(class="fa fa-trash")
+    
+                        tr.w3-hover-light-gray(id=`form_${user._id}` style='display:none; background-color:#DDECEA')
+                            form(method='post' action=`/users/edit/${user._id}`)
+                                td= user.username
+                                td
+                                    input(type='text' name='name' value=`${user.name}`)
+                                td= user.email
+                                td
+                                    if (user.username != login.username)
+                                        select(name='level')
+                                            option(value='user' selected=(user.level=='user')) user
+                                            option(value='admin' selected=(user.level=='admin')) admin
+                                    else 
+                                        span=user.level
+                                td
+                                    input.w3-button(id=`submit_${user._id}` type='submit' value='Confirmar' style='background-color:#D8D8D8') 
+                                td       
+                                    input.w3-button(id=`cancel_${user._id}` type='reset' value='Cancelar' style='background-color:#D8D8D8')
+
+        br
+        br
+        h2(style='font-family: Akshar,sans-serif;') Adicionar Novo Utilizador
+
+        .w3-container.w3-margin(style='border-top: 1px solid black; width:80%')
+            br
+
+            form#form-registar(style='width:60%')
+                label Nome
+                input#name-registar.w3-input(type='text' name='name' placeholder='ex: Maria Ramos' required)
+                br
+                label Username
+                input#username-registar.w3-input(type='text' name='username' placeholder='ex: maria_ramos' required)
+                br
+                label Email
+                input#email-registar.w3-input(type='text' placeholder='ex: maria_ramos@gmail.com' name='email')
+                br 
+                label Palavra-passe
+                input#password-registar.w3-input(type='password' name='password' required)
+                br
+                label Tipo: &nbsp;
+                select#level-registar(name='level')
+                    option(value='user') user
+                    option(value='admin') admin
+                br
+                br
+
+                p#erro-registar(style='font-size:16px; color: red;')
+                
+                input.w3-button.w3-text-white(type='submit' value='Registar' style='background-color:#5E9FA2')
+                input.w3-button.w3-text-white(type='reset' value='Limpar' style='background-color:#5E9FA2; margin-left:30px')
+            br
+
+    include includes/upload 
+    
+    script.
+        $(document).ready(function(){
+            $("#userList").click(function() {
+                let info = event.target.id.split('_')
+                let type = info[0]
+                let id = info[1]
+
+                switch (type){
+                    case "edit":
+                        $("#form_" + id).show()
+                        $("#show_" + id).hide()
+                        break;
+                    
+                    case "cancel":
+                        $("#form_" + id).hide()
+                        $("#show_" + id).show()
+                        break;
+                    
+                    default: 
+                        break;
+                }
+            })
+
+            $('#form-registar').on('submit', function() {
+                var user = {
+                  'name': $('#name-registar').val(),
+                  'username': $('#username-registar').val().trim(),
+                  'email': $('#email-registar').val().trim(),
+                  'password': $('#password-registar').val(),
+                  'level': $('#level-registar').val()
+                }
+
+                $.post('/registar', user)
+                .done(function(data, textStatus, xhr) {
+                    location.replace('/users');
+                })
+                .fail(function(xhr, textStatus, errorThrown) { $('#erro-registar').text(errorThrown); });
+
+                return false;
+            });
+        })

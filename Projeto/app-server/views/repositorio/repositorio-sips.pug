@@ -1,0 +1,169 @@
+extends ../layout
+
+block content
+    include ../includes/barra-lateral.pug
+    
+    div#info_recursos.w3-animate-opacity(style='margin-left:20%')
+        br
+        h1(style='font-family: Akshar,sans-serif;')= title 
+        br         
+        
+        - var sort = function (item) {
+        -   if (url.includes("sort=")){
+        -       return url.replace(/sort=[a-z]+/g, ("sort=" + item))
+        -   }
+        -   else if (url.indexOf('?') == -1){
+        -       return url + "?sort=" + item
+        -   }
+        -   else {
+        -       return url + "&sort=" + item 
+        -   }}
+
+        - var order = function (item) {
+        -   if (url.includes("order=")){
+        -       return url.replace(/order=[a-z]+/g, ("order=" + item))
+        -   }
+        -   else if (url.indexOf('?') == -1){
+        -       return url + "?order=" + item
+        -   }
+        -   else {
+        -       return url + "&order=" + item 
+        -   }}
+
+        .w3-container.w3-panel(style='border-bottom: 1px solid black; width:90%; height:75px;padding-top:20px')
+            .w3-bar.w3-white
+                .w3-dropdown-hover
+                    button.w3-button(style='background-color:#f9ac63; font-size:13px;') Organizar por ⌵
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("date")) Data submissão
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("name")) Nome
+                .w3-dropdown-hover(style="padding-left:5px")
+                    button.w3-button(style='background-color:#f9ac63; font-size:13px') Ordem ⌵
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        a.w3-bar-item.w3-mobile.w3-button(href=order("asc")) Ascendente
+                        a.w3-bar-item.w3-mobile.w3-button(href=order("desc")) Descendente
+                form.w3-right(action='/repositorio' method='get')
+                    input#pesquisa_sip.w3-bar-item.w3-mobile.w3-input.w3-border(type="text" placeholder="Pesquise um zip..." name='name' style='font-size:13px')
+                    button.w3-bar-item.w3-mobile.w3-button.w3-blue-gray(type='submit' value='pesquisa' style='height:37.5px')
+                        i(class='fa-solid fa-search')
+                .w3-dropdown-hover.w3-right(style="padding-right:5px")
+                    button.w3-button.w3-round.w3-blue-gray
+                        i(class="fa-solid fa-caret-down")
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        button#btn_pesquisa_zip.w3-bar-item.w3-mobile.w3-button(style='font-size:16px;') Zip
+                        button#btn_pesquisa_utilizador.w3-bar-item.w3-mobile.w3-button(style='font-size:16px;') Utilizador
+                        a.w3-bar-item.w3-mobile.w3-button.w3-light-gray(href='/repositorio' style='font-size:16px;') Limpar
+
+        br
+        .w3-container(style='width:80%;padding-top:5px;padding-bottom:25px')
+            #nothing-to-show.w3-container
+                p 
+                    b Sem recursos disponíveis...
+                    i(class="fa-regular fa-face-frown fa-2xl" style='padding-left:10px') 
+
+            table#sips-table.w3-table.w3-bordered.w3-border.w3-hoverable
+                tr(style='background-color:#ABD8D3')
+                    th Nome
+                    th Data submissão
+                    th Submissor
+                    th Descrição
+                    th
+                    th
+            
+                each sip in sips
+                    tr.w3-hover-light-gray(id='sip-' + sip._id class='linha-sip')
+                        td.sip-name
+                            a(href= '/repositorio/sips/' + sip._id)
+                                i(class="fa-solid fa-folder-tree" style='padding-right:8px') 
+                                | #{sip.name}
+                        td= sip.date_submission.replace('T', ' ')
+                        td= sip.user
+                        td= sip.description
+                        td 
+                            button.w3-button.w3-round(style='background-color:#72A9A3;')
+                                a(href='/download/sip/'+ sip._id + '?name=' + sip.name) 
+                                    i(class="fa-solid fa-download")
+                        td 
+                            if login
+                                if login.level=='admin' || sip.user == login.username
+                                    .w3-dropdown-hover
+                                        button.w3-button(style='background-color:#D8D8D8; font-size:13px; pointer-events: none;') Opções ⌵
+                                        .w3-dropdown-content.w3-bar-block.w3-card-4
+                                            button.remove-sip.w3-bar-item.w3-mobile.w3-button(id=sip._id style='font-size: 16px;')
+                                                i(class='fa-solid fa-xmark' style='padding-right:8px') 
+                                                | Eliminar
+                                            button.edit-sip-name.w3-bar-item.w3-mobile.w3-button(id=sip._id style='font-size: 16px;')
+                                                i(class='fa-solid fa-pen-to-square' style='padding-right:8px') 
+                                                | Editar    
+                                    .edit-name.w3-modal(id=sip._id)
+                                        .w3-modal-content.w3-animate-top.w3-card-4
+                                            .w3-panel(style='background-color:#5E9FA2; height:31px')
+                                                i.close-modal.w3-button.w3-display-topright(id=sip._id class='fa-solid fa-x')
+                                            .w3-container
+                                                h2 Edição
+                                                p
+                                                    form(method='post' action='/sips/' + sip._id + '/editar')
+                                                        p
+                                                            b Novo nome:
+                                                            input(type='text' value=sip.name name='name'  pattern='[a-zA-Z0-9][a-zA-Z0-9\\-_]{1,25}\.zip' title='Não altere o tipo do ficheiro.\nO novo nome apenas pode conter os símbolos - e _ e deve começar por uma letra ou um número.' style='margin-left:5px')                                  
+                                                        p
+                                                            b Nova descrição:
+                                                            input(type='text' value=sip.description name='description' maxlength='60' style='margin-left:5px; width:80%')
+                                                        p   
+                                                            if sip.visibility
+                                                                input(type='radio' name='visibility' value='private') 
+                                                                label(for='private') &nbsp; Privado
+                                                                br
+                                                                input(type='radio' name='visibility' value='public' checked) 
+                                                                label(for='public') &nbsp; Público
+                                                            else 
+                                                                input(type='radio' name='visibility' value='private' checked) 
+                                                                label(for='private') &nbsp; Privado
+                                                                br
+                                                                input(type='radio' name='visibility' value='public') 
+                                                                label(for='public') &nbsp; Público
+
+                                                        p
+                                                            input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+
+    include ../includes/upload  
+                                  
+    
+    script.
+        $(document).ready(function(){   
+            var sips = parseInt('#{sips.length}')
+
+            if (sips==0) {
+                $('#nothing-to-show').show();
+                $('#sips-table').hide();
+            } else {
+                $('#nothing-to-show').hide();
+                $('#sips-table').show();
+            }
+
+            $('.remove-sip').on('click', function() {
+                var id = $(this).attr('id');
+                $.get('/sips/' +  id + '/eliminar', function(result) {
+                    $('#sip-' + id).remove();
+                    sips--;
+                    if (sips==0) {
+                        $('#nothing-to-show').show();
+                        $('#sips-table').hide();
+                    }
+                });
+            });
+
+            $('.edit-sip-name').on('click', function() {
+                var id = $(this).attr('id');
+                $('#sip-' + id + ' .edit-name').css('display','block');
+            });
+
+            $('.close-modal').on('click', function() {
+                var id = $(this).attr('id');
+                $('#sip-' + id + ' .edit-name').css('display','none');
+            });
+
+        });
+
+
+

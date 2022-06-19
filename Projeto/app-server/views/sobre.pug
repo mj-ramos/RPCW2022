@@ -1,0 +1,67 @@
+extends layout
+
+block content
+    .w3-container#div-content(style='margin: 25px 50px 25px 50px')
+        h1
+             b(style='font-family: Akshar,sans-serif') Repositório de Recursos Didáticos
+        p Bem-vindo ao Datalog. O Datalog é um repositório de recursos didáticos onde pode fazer upload dos seus ficheiros.
+        p Existem alguns requisitos relativamente aos ficheiros dos quais pode fazer upload: 
+        
+        ul 
+            li Deve fazer upload de um 
+                b zip.  
+            li Ao nível do zip deve existir um manifesto com o nome 
+                b RRD-SIP.json
+            li Todos os ficheiros dentro do zip devem ser referenciados no manifesto e todos os ficheiros do manifesto devem estar presentes no zip.
+            li O manifesto deve conter os checksums SHA-1.
+
+        br 
+        hr 
+
+        h3 
+            b(style='font-family: Akshar,sans-serif') Manifesto
+        p De seguida está um exemplo de um manifesto com o formato correto:
+        img(src='/images/manifest_example.png' width='500' height='300')
+
+        p Cada registo deve conter o campo 
+            b checksum 
+            | e o campo 
+            b path 
+            | sendo que este é o caminho relativo do ficheiro dentro do zip.
+
+        br 
+        hr 
+        h3 
+            b(style='font-family: Akshar,sans-serif') Xmls
+        p Os ficheiros xml submetidos devem cumprir um determinado formato. De seguida encontra-se o schema dos ficheiros xml que podem ser submetidos: 
+        textarea(cols="100", rows="20" readonly)
+            .
+                <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                <xs:element name="RRD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="meta">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="titulo"/>
+                                        <xs:element type="xs:string" name="descricao"/>
+                                        <xs:element type="xs:string" name="data_criacao"/>
+                                        <xs:element type="xs:string" name="produtor"/>
+                                        <xs:element type="xs:string" name="tipo"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="corpo">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" type="xs:string" name="item"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                </xs:schema>
+        
+    include includes/footer.pug   
+        

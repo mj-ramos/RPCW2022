@@ -1,0 +1,30 @@
+version: "3"
+services:
+  app:
+    container_name: app-server
+    restart: always
+    image: anapaula99/rpcw-app-server:teste
+    ports:
+      - "80:3001"
+  api:
+    container_name: api-server
+    restart: always
+    depends_on: 
+      - mongo
+    image: anapaula99/rpcw-api-server:teste
+
+  auth:
+    container_name: auth-server
+    restart: always
+    depends_on: 
+      - mongo
+    image: anapaula99/rpcw-auth-server:teste
+    
+  mongo:
+    container_name: mongodb
+    image: anapaula99/mongodb:teste
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+ mongodb:

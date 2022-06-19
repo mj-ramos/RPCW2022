@@ -1,0 +1,67 @@
+doctype html
+html
+  include includes/head.pug   
+             
+  body
+    div(class='barra-topo' style='height:45px')
+      .w3-top(style='height:45px')
+        .w3-bar(style='background-color:#5E9FA2')
+          .w3-bar-item.w3-button.w3-mobile.w3-white.w3-hover-white
+            a(href='/')
+              img(src='images/logo.png' style='height:27px; width: 85px')
+          a#nav_inicio.w3-bar-item.w3-button.w3-mobil.w3-text-white.w3-hover-white(href='/') Início
+          a#nav_login.w3-bar-item.w3-button.w3-right.w3-text-white.w3-mobile.w3-hover-white(href='/login') Login
+    
+    .content-div.w3-container.w3-margin
+      .w3-card(style='width:40%; margin:auto;background: rgb(213,163,94);background: linear-gradient(6deg, rgba(123,206,187,0.2) 7%, rgba(249,172,99,0.15) 100%);')
+          header
+              h4.w3-center(style='padding-top:15px; color:#5E9FA2') 
+                  b(style='font-family: Roboto Flex, sans-serif;') Registo 
+          .w3-container.w3-margin
+              form#form-registar
+                  label Nome
+                  input#name-registar.w3-input.w3-border-0(type='text' name='name' placeholder='ex: Maria Ramos' required)
+                  br
+                  label Username
+                  input#username-registar.w3-input.w3-border-0(type='text' name='username' pattern="[A-Za-z][A-Za-z_1-9\\-]{3,25}" title="Tamanho mínimo de 4 carateres e máximo de 25.\nDeve começar por uma letra e apenas pode conter números, letras ou os símbolos - e _." placeholder='ex: maria_ramos' required)
+                  br
+                  label Email
+                  input#email-registar.w3-input.w3-border-0(type='email' placeholder='ex: maria_ramos@gmail.com' name='email' required)
+                  br 
+                  label Palavra-passe
+                  input#password-registar.w3-input.w3-border-0(type='password' name='password' pattern=".{4,25}" title="Tamanho mínimo de 4 caracteres e máximo de 25." required)
+                  br
+
+                  p#erro-registar(style='font-size:16px; color: red;') 
+
+                  input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')
+                  a.w3-button.w3-text-white(href='/' style='background-color:#5E9FA2; margin-left:30px') Cancelar
+                  br
+                  br 
+                  br
+      
+    include includes/footer
+
+
+    script.
+      $(document).ready(function(){
+          
+        $('#form-registar').on('submit', function() {
+          var user = {
+            'name': $('#name-registar').val(),
+            'username': $('#username-registar').val().trim(),
+            'email': $('#email-registar').val().trim(),
+            'password': $('#password-registar').val()
+          }
+
+          $.post('/registar', user)
+          .done(function(data, textStatus, xhr) { 
+            $.post('/login', user)
+            .done(function(data, textStatus, xhr) { location.replace('/repositorio'); }); 
+          })
+          .fail(function(xhr, textStatus, errorThrown) { $('#erro-registar').text(errorThrown); });
+
+          return false;
+        });
+
+      });

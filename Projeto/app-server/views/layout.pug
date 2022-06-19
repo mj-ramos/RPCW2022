@@ -1,0 +1,40 @@
+doctype html
+html
+  include includes/head.pug    
+
+  body
+    div(class='barra-topo' style='height:45px')
+      .w3-top(style='height:45px')
+        .w3-bar(style='background-color:#5E9FA2')
+          .w3-bar-item.w3-button.w3-mobile.w3-white.w3-hover-white
+            a(href='/')
+              img(src='/images/logo.png' style='height:27px; width: 85px')
+          a#nav_inicio.w3-bar-item.w3-button.w3-mobile.w3-text-white.w3-hover-white(href='/') Início
+          a#nav_noticias.w3-bar-item.w3-button.w3-mobile.w3-text-white.w3-hover-white(href='/noticias') Notícias
+          #nav_repositorio.w3-dropdown-hover.w3-mobile(style="padding-left:5px")
+            a.w3-button.w3-text-white.w3-hover-white(style='font-family: Akshar,sans-serif; font-size: 18px;' href='/repositorio') Repositório
+            .w3-dropdown-content.w3-bar-block.w3-card-4
+                a.w3-bar-item.w3-mobile.w3-button(style='font-size: 16px;' href='/repositorio/recursos') 
+                  i(class='fa-solid fa-file' style='padding-right:8px') 
+                  | Ficheiros
+                a.w3-bar-item.w3-mobile.w3-button(style='font-size: 16px;' href='/repositorio') 
+                  i(class='fa-solid fa-file-zipper' style='padding-right:8px') 
+                  | Submissões
+
+          a#nav_sobre.w3-bar-item.w3-button.w3-mobile.w3-text-white.w3-hover-white(href='/sobre') Sobre
+          
+          if login!=undefined
+            #nav_logout.w3-dropdown-hover.w3-mobile.w3-right(style="padding-left:5px")
+              button.w3-button.w3-text-white.w3-hover-white(style='font-family: Akshar,sans-serif; font-size: 18px;')
+                i(class='fa-solid fa-circle-user fa-xl' style='padding-right:8px') 
+                | #{login.name}
+              .w3-dropdown-content.w3-bar-block.w3-card-4
+                  a.w3-bar-item.w3-mobile.w3-button(style='font-size: 16px;' href='/logout')
+                    i(class='fa-solid fa-arrow-right-from-bracket' style='padding-right:8px') 
+                    | Logout
+
+          else
+            a#nav_login.w3-bar-item.w3-button.w3-right.w3-text-white.w3-mobile.w3-hover-white(href='/login') Login
+            a#nav_login.w3-bar-item.w3-button.w3-right.w3-text-white.w3-mobile.w3-hover-white(href='/registar') Registar
+      
+    block content

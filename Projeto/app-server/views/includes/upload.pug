@@ -1,0 +1,78 @@
+div#upload_recursos.w3nimate-top(style='margin-left:20%')        
+            .w3-card(style='width:80%;')
+                .w3-panel(style='height:10px; background-color:#f9ac63')
+                .w3-container.w3-margin
+                    h2(style='font-family: Akshar,sans-serif;') Upload       
+
+                    form#form_upload.w3-container(enctype='multipart/form-data')
+                        .w3-panel(style='height:3px; background-color:#FCCA9B')
+                        label
+                            b Descrição 
+                        input.w3-input.w3-border(type='text' maxlength='60' name='description')
+
+                        .w3-panel(style='height:3px; background-color:#FCCA9B')
+                        label
+                            b Visibilidade 
+                                 
+                        .w3-container.w3-margin
+                            input#private(type='radio' name='visibility' value='private') 
+                            label(for='private') &nbsp; Privado
+                            br
+                            input#public(type='radio' name='visibility' value='public' checked) 
+                            label(for='public') &nbsp; Público
+                            
+                        .w3-panel(style='height:3px; background-color:#FCCA9B')
+                        label
+                                b Selecione o zip
+                        p
+                            input#SIP.w3-input.w3-border.w3-light-grey(type='file' name='SIP' ectype='multipart/form-data')
+                        p#res_upload             
+                        br
+                        
+                        input#botao_form_upload.w3-btn.w3-round(style='background-color:#f9ac63' type='button' value='Enviar')
+                .w3-panel(style='height:10px; background-color:#f9ac63')
+
+
+script.
+    $(document).ready(function(){
+        $('#upload_recursos').hide()
+
+        $('#botao_form_upload').on('click', function() {
+            let formData = new FormData();
+            let SIP = $('#SIP')[0].files[0];
+            formData.append('SIP',SIP);
+            formData.append('visibility',$("input[type=radio][name=visibility]:checked",'#form_upload').val());
+            formData.append('description',$("input[type=text][name=description]").val());
+            
+            $.ajax({
+                type: 'POST',
+                url: '/upload',  
+                data: formData,  
+                contentType: false,
+                processData: false
+            })
+            .done(function (data, textStatus, xhr) {
+                if(xhr.status==202) {
+                    console.log('mensagem',data,'ficheiros',data.ficheiros)
+                    let meta = {sip: data.sip,ficheiros: data.ficheiros}
+                    $.ajax({
+                        type: 'POST',
+                        url: '/meta',
+                        data: meta,
+                        success : function(ret){
+                            document.write(ret);
+                        },
+                        error: function(err){
+                            document.write(err.responseText);
+                        }                    
+                    })
+                } else {
+                    $('#res_upload').css("color", "green").text(data.resultado)
+                    window.location.href = '/repositorio';
+                }
+            })
+            .fail(function (xhr, textStatus, errorThrown) {
+                $('#res_upload').css("color", "red").text(errorThrown)
+            })
+        }) 
+    });

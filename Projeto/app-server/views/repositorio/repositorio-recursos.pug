@@ -1,0 +1,188 @@
+extends ../layout
+
+block content
+    include ../includes/barra-lateral.pug
+    
+    div#info_recursos.w3-animate-opacity(style='margin-left:20%')
+        br
+        h1(style='font-family: Akshar,sans-serif;') Recursos Didáticos 
+        
+        - var sort = function (item) {
+        -   if (url.includes("sort=")){
+        -       return url.replace(/sort=[a-z]+/g, ("sort=" + item))
+        -   }
+        -   else if (url.indexOf('?') == -1){
+        -       return url + "?sort=" + item
+        -   }
+        -   else {
+        -       return url + "&sort=" + item 
+        -   }}
+
+        - var order = function (item) {
+        -   if (url.includes("order=")){
+        -       return url.replace(/order=[a-z]+/g, ("order=" + item))
+        -   }
+        -   else if (url.indexOf('?') == -1){
+        -       return url + "?order=" + item
+        -   }
+        -   else {
+        -       return url + "&order=" + item 
+        -   }}
+
+        .w3-container.w3-panel(style='border-bottom: 1px solid black; width:90%; height:75px;padding-top:20px')
+            .w3-bar.w3-white
+                .w3-dropdown-hover
+                    button.w3-button(style='background-color:#f9ac63; font-size:13px;') Organizar por ⌵
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("title")) Título
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("date")) Data criação
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("producer")) Produtor
+                        a.w3-bar-item.w3-mobile.w3-button(href=sort("type")) Tipo
+                .w3-dropdown-hover(style="padding-left:5px")
+                    button.w3-button(style='background-color:#f9ac63; font-size:13px') Ordem ⌵
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        a.w3-bar-item.w3-mobile.w3-button(href=order("asc")) Ascendente
+                        a.w3-bar-item.w3-mobile.w3-button(href=order("desc")) Descendente
+                form.w3-right(action='/repositorio/recursos' method='get')
+                    input#pesquisa_recurso.w3-bar-item.w3-mobile.w3-input.w3-border(type="text" placeholder="Pesquise um título..." name='title' style='font-size:13px')
+                    button.w3-bar-item.w3-mobile.w3-button.w3-blue-gray(type='submit' value='pesquisa' style='height:37.5px')
+                        i(class='fa-solid fa-search')
+                .w3-dropdown-hover.w3-right(style="padding-right:5px")
+                    button.w3-button.w3-round.w3-blue-gray
+                        i(class="fa-solid fa-caret-down")
+                    .w3-dropdown-content.w3-bar-block.w3-card-4
+                        button#btn_pesquisa_titulo.w3-bar-item.w3-mobile.w3-button(style='font-size:16px;') Título
+                        button#btn_pesquisa_tipo.w3-bar-item.w3-mobile.w3-button(style='font-size:16px;') Tipo
+                        button#btn_pesquisa_produtor.w3-bar-item.w3-mobile.w3-button(style='font-size:16px;') Produtor
+                        a.w3-bar-item.w3-mobile.w3-button.w3-light-gray(href='/repositorio/recursos' style='font-size:16px;') Limpar
+        br
+        .w3-container(style='width:80%;padding-top:5px;padding-bottom:25px')
+            if (recursos==undefined || recursos.length==0)
+                p 
+                    b Sem recursos disponíveis...
+                    i(class="fa-regular fa-face-frown fa-2xl" style='padding-left:10px') 
+            else
+                table.w3-table.w3-bordered.w3-border.w3-hovered
+                    tr(style='background-color:#ABD8D3')
+                        th Recurso
+                        th Título
+                        th Data criação
+                        th Produtor 
+                        th Tipo
+                        th 
+                        th
+                        th
+                    
+                    each recurso in recursos
+                        tr.w3-hover-light-gray(id='file-' + recurso._id)
+                            td(style='background-color:#DDECEA')
+                                a(href= '/repositorio/recursos/' + recurso._id)
+                                    i(class="fa-solid fa-file" style='padding-right:8px') 
+                                    | #{recurso.file_name}
+                            td= recurso.title
+                            td= recurso.date_creation
+                            td= recurso.producer
+                            td= recurso.type
+                            td 
+                                button.w3-button.w3-round(style='background-color:#72A9A3')
+                                    a(href='/download/recurso/'+ recurso._id + '?name=' + recurso.file_name) 
+                                        i(class="fa-solid fa-download")
+                            td       
+                                button.see-file.w3-button.w3-round(id=recurso.file_name+'-'+recurso._id style='background-color:#FFC15E')
+                                    i(class="fa-regular fa-eye")   
+
+                                .see-file-modal.w3-modal(id=recurso._id)
+                                    .w3-modal-content.w3-animate-top.w3-card-4
+                                        .w3-panel(style='background-color:#5E9FA2; height:31px')
+                                            i.close-modal.w3-button.w3-display-topright(id=recurso._id class='fa-solid fa-x') 
+                                            p 
+                                        .w3-container 
+                                            if (recurso.mimetype=='application/xml') 
+                                                textarea#xml-div(cols="80" rows="10" readonly)
+                                            else
+                                                object(type=recurso.mimetype data='/files/'+recurso.file_name width="850" height="380")
+                            td
+                                if login
+                                    if login.level=='admin' || recurso.user == login.username
+                                        .w3-dropdown-hover
+                                            button.w3-button(style='background-color:#D8D8D8; font-size:13px; pointer-events: none;') Opções ⌵
+                                            .w3-dropdown-content.w3-bar-block.w3-card-4
+                                                button.remove-file.w3-bar-item.w3-mobile.w3-button(id=recurso._id style='font-size: 16px;')
+                                                    i(class='fa-solid fa-xmark' style='padding-right:8px') 
+                                                    | Eliminar
+                                                button.edit-file-name.w3-bar-item.w3-mobile.w3-button(id=recurso._id style='font-size: 16px;')
+                                                    i(class='fa-solid fa-pen-to-square' style='padding-right:8px') 
+                                                    | Editar    
+                                        .edit-name.w3-modal(id=recurso._id)
+                                            .w3-modal-content.w3-animate-top.w3-card-4
+                                                .w3-panel(style='background-color:#5E9FA2; height:31px')
+                                                    i.close-modal.w3-button.w3-display-topright(id=recurso._id class='fa-solid fa-x')
+                                                .w3-container
+                                                    h2 Edição
+                                                    p
+                                                        form(method='post' action='/recursos/' + recurso._id + '/editar')
+                                                            input(type='hidden' name='path' value=recurso.path)
+                                                            input(type='hidden' name='mimetype' value=recurso.mimetype)
+                                                            input(type='hidden' name='id_sip' value=recurso.id_sip)
+                                                            input(type='hidden' name='date_creation' value=recurso.date_creation)
+
+                                                            p
+                                                                b Novo nome:
+                                                                input(type='text' value=recurso.file_name name='file_name' pattern='[a-zA-Z0-9][a-zA-Z0-9\\-_]{1,25}\.'+(recurso.file_name).split('.')[1] title='Não altere o tipo do ficheiro.\nO novo nome apenas pode conter os símbolos - e _ e deve começar por uma letra ou um número.' style='margin-left:5px')    
+                                                            p
+                                                                b Nova descrição:
+                                                                input(type='text' value=recurso.desc name='desc' style='margin-left:5px')                                                                
+                                                            p
+                                                                b Novo título:
+                                                                input(type='text' value=recurso.title name='title' style='margin-left:5px')                                                                
+                                                            p
+                                                                b Novo tipo:
+                                                                input(type='text' value=recurso.type name='type' style='margin-left:5px')  
+                                                            p
+                                                                b Novo produtor:
+                                                                input(type='text' value=recurso.producer name='producer' style='margin-left:5px')  
+                                                            
+                                                            p
+                                                                input.w3-button.w3-text-white(type='submit' value='Submeter' style='background-color:#5E9FA2')                                    
+    include ../includes/upload 
+
+
+
+    script.
+        $(document).ready(function(){   
+
+            $('.remove-file').on('click', function() {
+                var id = $(this).attr('id');
+                $.get('/recursos/' +  id + '/eliminar', function(result) {
+                    $('#file-' + id).remove();                    
+                });
+            });
+
+            $('.edit-file-name').on('click', function() {
+                var id = $(this).attr('id');
+                $('#file-' + id + ' .edit-name').css('display','block');
+            });
+
+            $('.close-modal').on('click', function() {
+                var id = $(this).attr('id');
+                $('#file-' + id + ' .edit-name').css('display','none');
+                $('#file-' + id + ' .see-file-modal').css('display','none');
+            });
+
+            $('.see-file').on('click', function() {
+                var name_id = ($(this).attr('id')).split('-');
+                $.get('/download/ver/recurso/'+name_id[1]+'?name='+name_id[0], function(data) {
+                    console.log('Ok');
+                    if (name_id[0].split('.')[1] == 'xml') {
+                        $( "#xml-div" ).load( '/files/'+name_id[0] );
+                    }
+                    $('#file-' + name_id[1] + ' .see-file-modal').css('display','block');
+                })
+                                
+            })
+
+        });
+
+
+
+
