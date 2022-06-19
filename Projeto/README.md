@@ -11,11 +11,11 @@ operações e funcionalidades que a imaginação dos alunos conseguir criar.
 
 ### auth-server
 npm i 
-npm start
+npm start  
 
 ### api-server
 npm i 
-npm start
+npm start  
 
 ### app-server
 npm i 
