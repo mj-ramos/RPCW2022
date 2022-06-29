@@ -15,27 +15,28 @@ var Sip = require('../controllers/sip');
 
 //----------------------------------------------------
 
-async function manifestFromFolder(folderId) {
+async function manifestFromFolder(folderId,folderPath) {
+  folderPath = folderPath.substring(1);
   let folderChildren = await Folder.find_children(folderId);
 
   let manifest = await (async() => {
     let pManifest = []
     for (const subfolder of folderChildren[0].subfolders) {
-        let subfolderManifest = await manifestFromFolder(subfolder._id);
+        let subfolderManifest = await manifestFromFolder(subfolder._id,folderPath);
         pManifest = pManifest.concat(subfolderManifest);
     }
     return pManifest;
   })();
 
   for (const file of folderChildren[0].files) {
-    let newPath = (file.path).split('/')
-    newPath.shift();
-    newPath = newPath.join('/') 
+    let newPath = ((file.path).split(folderPath)[1]).substring(1);
+
     manifest.push({
       "checksum" : file.checksum,
       "path": newPath
     })
   }
+  console.log(manifest)
 
   return manifest;
 }
@@ -59,7 +60,7 @@ router.get('/download/:fid', tokenValidator.verifyTokenWatchFolder(), async func
       sipZip.extractAllTo(newDir);
 
       //write manifest
-      let manifest = await  manifestFromFolder(req.params.fid);
+      let manifest = await  manifestFromFolder(req.params.fid,(data[0].path).substring(1));
       manifest = JSON.stringify(manifest,undefined,4);
       fs.writeFileSync(dirFolder + '/RRD-SIP.json', manifest);
 
@@ -67,8 +68,7 @@ router.get('/download/:fid', tokenValidator.verifyTokenWatchFolder(), async func
       newZip.addLocalFolder(dirFolder,'');
       newZip.writeZip(folderPath);
 
-      
-
+  
 
       res.sendFile(path.resolve(folderPath));
 
