@@ -173,8 +173,8 @@ router.put('/recursos/:rid', tokenValidator.verifyTokenFile, async function(req,
           let obj = {"meta" : result.RRD.meta[0], "corpo" : result.RRD.corpo[0]};
           let newData = js2xmlparser.parse("RRD",obj);
 
-          sipZip.addFile(req.body.path, Buffer.from(newData, "utf-8"));
           sipZip.deleteFile(file.path);
+          sipZip.addFile(req.body.path, Buffer.from(newData, "utf-8"));
           sipZip.writeZip(sipPath);
 
           let newChecksum = SIPValidator.calculateChecksum(newData);

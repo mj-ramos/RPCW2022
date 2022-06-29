@@ -27,35 +27,41 @@ router.get('/', function(req, res) {
     
         //procurar por logs de download...
         var dls = text.match(/GET \/download\/recurso\/(.+)?/g)
-        dls.forEach((dl, i) => {
-          let id = dl.split('/')[3].split(/\?| /)[0]
-          
-          if (dict[id])
-            dict[id].downloads += 1
-          else
-            dict[id] = {
-              id: id,
-              name: '',
-              downloads: 1,
-              visuals: 0
-            }
-        })
+
+        if (dls) {
+          dls.forEach((dl, i) => {
+            let id = dl.split('/')[3].split(/\?| /)[0]
+            
+            if (dict[id])
+              dict[id].downloads += 1
+            else
+              dict[id] = {
+                id: id,
+                name: '',
+                downloads: 1,
+                visuals: 0
+              }
+          })
+        }
     
         //procurar por logs de visualização...
         var vs = text.match(/GET \/download\/ver\/recurso\/(.+)?/g)
-        vs.forEach((v, i) => {
-          let id = v.split('/')[4].split(/\?| /)[0]
-          
-          if (dict[id])
-            dict[id].visuals += 1
-          else
-            dict[id] = {
-              id: id,
-              name: '',
-              downloads: 0,
-              visuals: 1
-            }
-        })
+
+        if (vs) {
+          vs.forEach((v, i) => {
+            let id = v.split('/')[4].split(/\?| /)[0]
+            
+            if (dict[id])
+              dict[id].visuals += 1
+            else
+              dict[id] = {
+                id: id,
+                name: '',
+                downloads: 0,
+                visuals: 1
+              }
+          })
+        }
     
         var result = {}
         if (req.query.sort && req.query.sort=='visuals'){
@@ -71,7 +77,7 @@ router.get('/', function(req, res) {
         
         res.render('stats', { data: result, type: 'files', login: req.cookies.login });
       })
-      .catch(e => res.render('error', {error: e, message: 'Página Indisponível.'}))  
+      .catch(e => {console.log(e);res.render('error', {error: e, message: 'Página Indisponível.'})})  
 });
 
 router.get('/sips', function(req, res) {
