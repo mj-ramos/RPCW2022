@@ -1,11 +1,23 @@
-<meta>
-	<titulo>Japão</titulo>
-	<data>21 de fevereiro de 2022</data>
-	<autor>
-		<nome>Maria José Costa Ramos</nome>
-		<numero>pg47483</numero>
-	</autor>
-	<uc>Representação e Processamento de Conhecimento na Web</uc>
-</meta>
-<resumo>Página web sobre o Japão. Inclui algumas informações gerais acerca da história e cultura do Japão. Serve essencialmente para aprender os conceitos básicos de html.</resumo>
-<ficheiros>japao.html</ficheiros>
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+    <meta>
+        <titulo>TPC1: Página HTML sobre o Japão</titulo>
+        <data>2022-02-21</data>
+        <autor>
+            <id>pg47483</id>
+            <nome>Maria José Costa Ramos</nome>
+        </autor>
+        <uc>
+            <sigla>RPCW2022</sigla>
+            <nome>Representação e Processamento de Conhecimento na Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+		<resumo>Página web sobre o Japão. Inclui algumas informações gerais acerca da história e cultura do Japão. Serve essencialmente para aprender os conceitos básicos de html.</resumo>
+    </resumos>
+    <resultados>
+        <resultado>
+            <url>japao.html</url>
+        </resultado>
+    </resultados>
+</doc>

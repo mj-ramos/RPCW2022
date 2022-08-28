@@ -1,0 +1,13 @@
+<RRD>
+    <meta>
+      <titulo>Teste</titulo>
+      <descricao>descricao</descricao>
+      <data_criacao>20-05-2000</data_criacao>
+      <produtor>Maria</produtor>
+      <tipo>Teste</tipo>
+    </meta>
+  <corpo>
+    <item>teste</item>
+    <item> ola </item>
+  </corpo>
+</RRD>

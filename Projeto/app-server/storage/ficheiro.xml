@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<RRD>
+    <meta>
+        <titulo>Teste202</titulo>
+        <descricao>descricaoooo</descricao>
+        <data_criacao>20-05-2000</data_criacao>
+        <produtor>Maria</produtor>
+        <tipo>Teste</tipo>
+    </meta>
+    <corpo>
+        <item>teste</item>
+        <item> ola </item>
+    </corpo>
+</RRD>
