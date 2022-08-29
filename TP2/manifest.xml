@@ -20,11 +20,17 @@
     <resultados>
         <resultado>
             <url>geraHtml.js</url>
-            <texto>Gera as páginas html. Gera duas pastas (filmes e atores) que contêm as páginas de cada filme/ator, dois ficheiros html (filmes.html e atores.html) que reúnem o nome dos filmes/atores e o index.html. </texto>
+            <texto>Gera as páginas html. Gera duas pastas (filmes e atores) que contêm as páginas de cada filme/ator, dois ficheiros html (filmes.html e atores.html) que reúnem o nome dos filmes/atores e o index.html.</texto>
         </resultado>
         <resultado>
             <url>servidor.js</url>
-            <texto>Serve as páginas html</texto>     
+            <texto>Serve as páginas html na porta 44567.</texto>     
         </resultado>
     </resultados>
+    <execucao>
+        <comandos>
+            <comando>node geraHtml.js</comando>
+            <comando>node servidor.js</comando>
+        </comando>
+    </execucao>
 </doc>

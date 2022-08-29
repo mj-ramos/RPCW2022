@@ -1,7 +1,6 @@
 const fs = require('fs')
 let jsonData = require('./cinemaATP.json')
 
-
 fs.mkdirSync('filmes')
 fs.mkdirSync('atores')
 
@@ -37,7 +36,6 @@ jsonData.forEach(register => {
 })
 
 //Order movies and actors
-
 var orderedMovies = [...movies.entries()].sort() //(a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)
 var orderedActors = [...actors.entries()].sort()
 
@@ -72,7 +70,7 @@ for (const [movie, value] of orderedMovies) {
     dataMovies += '\n<li><a href=\"http://localhost:44567/filmes/f' + value.id + '\">' + movie + '</a></li>'
 
     fs.writeFile('filmes/f' + value.id + '.html',data,(err => {
-        if (err) console.log("Erro na escrita do ficheiro!")
+        if (err) console.log("Erro na escrita do ficheiro de um filme!", err)
     }))  
 }
 
@@ -90,7 +88,7 @@ for (const [actor, value] of orderedActors) {
 
 
     fs.writeFile('atores/a' + value.id + '.html',data,(err => {
-        if (err) console.log("Erro na escrita do ficheiro!")
+        if (err) console.log("Erro na escrita do ficheiro de um ator!", err)
     }))  
 }
 
@@ -99,11 +97,11 @@ dataMovies += '\</ul>\n</body>\n</html>'
 
 
 fs.writeFile('filmes.html',dataMovies, (err) => {
-    if (err) console.log("Erro na escrita do ficheiro!")
+    if (err) console.log("Erro na escrita do ficheiro de filmes!", err)
 })
 
 fs.writeFile('atores.html',dataActors, (err) => {
-    if (err) console.log("Erro na escrita do ficheiro!")
+    if (err) console.log("Erro na escrita do ficheiro de atores!", err)
 })
 
 
@@ -115,5 +113,5 @@ data = "<!DOCTYPE html>\n<html>\n<head>\n<title>cinema</title><meta charset=\"UT
     "</body></html>"
 
 fs.writeFile("index.html",data, (err) => {     
-    if (err) console.log('Erro a escrever ficheiro!')
+    if (err) console.log('Erro a escrever ficheiro de índice!', err)
 })

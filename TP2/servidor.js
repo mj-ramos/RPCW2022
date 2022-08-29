@@ -22,7 +22,6 @@ http.createServer(function(req,res) {
     console.log(fileToRead)
 
     if(fileToRead != "") {
-   
         fs.readFile(fileToRead, function(err,data) {
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
             if(err) res.write('<p>Erro na leitura do ficheiro!</p>')
