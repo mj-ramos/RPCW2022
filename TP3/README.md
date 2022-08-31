@@ -1,7 +1,7 @@
-# Utilização de uma API de dados por um servidor  
+## Utilização de uma API de dados
 
 **Execução**  
-json-server --watch db.json
+json-server --watch db.json  
 node servidor.js  
   
 **Dependências**  
