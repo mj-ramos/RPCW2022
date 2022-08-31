@@ -35,4 +35,11 @@
             <texto>Pasta com recursos estáticos do servidor.</texto>
         </resultado>
     </resultados>
+    <execucao>
+        <comandos>
+            <comando>json-server --watch toDo.json</comando>
+            <comando>node server.js</comando>
+        </comandos>
+    </execucao>
+
 </doc>
