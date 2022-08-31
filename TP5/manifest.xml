@@ -15,7 +15,7 @@
     <resumo>
         <p>Para este trabalho foi proposta a criação de uma aplicação web com a listagem da informação presente num arquivo musical. Este arquivo contém um conjunto de músicas e respetivos títulos, ficheiros, entre outras informações, e está no formato JSON.</p>
         <p>O JSON disponibilizado encontrava-se mal formatado e com alguns campos preenchidos de forma irregular, por isso foi desenvolvido um pequeno script em python para a correção destes erros e, adicionalmente, associar a cada registo um identificador único.</p>
-        <p>O esqueleto da aplicação foi gerado utlizando o Express e os dados do dataset são acedidos fazendo pedidos REST via HTTP ao json-server.</p>
+        <p>O esqueleto da aplicação foi gerado utlizando o Express e os dados do dataset são acedidos fazendo pedidos REST ao json-server.</p>
         <p>A página principal da aplicação apresenta uma tabela com as músicas no dataset. É possível aceder a uma página individual para cada música clicando no seu nome; é também possível clicar numa província e obter a listagem de músicas dessa província.</p>
         <p>Adicionalmente, como trabalho extra, foi proposta a criação de uma página com um formulário para a adição de uma nova música, o que também foi implementado.</p>
     </resumos>
@@ -37,4 +37,13 @@
             <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
         </resultado>
     </resultados>
+    <execucao>
+        <comandos>
+            <comando>py trataJSON.py</comando>
+            <comando>json-server --watch arq-son-EVO.json</comando>
+            <comando>npm i</comando>
+            <comando>npm start</comando>
+        </comandos>
+    </execucao>
+
 </doc>
