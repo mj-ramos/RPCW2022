@@ -23,4 +23,13 @@
             <texto>Servidor que disponibiliza as tabelas com informações sobre a escola e obtém os dados através de pedidos a uma API de dados.</texto>
         </resultado>
     </resultados>
+    <execucao>
+        <dependencias>
+            <dependencia>axios</dependencia>
+        </dependencias>
+        <comandos>
+            <comando>json-server --watch db.json</comando>
+            <comando>node servidor.js</comando>
+        </comandos>
+    </execucao>
 </doc>
