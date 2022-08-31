@@ -39,8 +39,8 @@
     </resultados>
     <execucao>
         <comandos>
-            <comando>py trataJSON.py</comando>
-            <comando>json-server --watch arq-son-EVO.json</comando>
+            <comando>py dataset/trataJSON.py</comando>
+            <comando>json-server --watch dataset/arq-son-EVO.json</comando>
             <comando>npm i</comando>
             <comando>npm start</comando>
         </comandos>
