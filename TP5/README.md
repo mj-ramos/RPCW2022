@@ -1,4 +1,4 @@
-# Servidor com listagem de informação num arquivo musical
+# Servidor com listagem de informação de um arquivo musical
   
 **Execução**  
 py dataset/trataJSON.py  
