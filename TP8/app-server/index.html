@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parágrafos</title>
+    <link rel="stylesheet" type="text/css" href="w3.css">
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="paragrafos.js"></script>
+</head>
+
+<body>
+    <div class="w3-container w3-cyan">
+        <h2 class="w3-text-white" style="text-shadow:1px 1px 0 #444"><b>Parágrafos</b></h2>
+    </div>
+    <div class="w3-card w3-margin">
+        <div class="w3-container w3-pale-blue">
+            <h5> <b>Adicionar parágrafo</b></h5>
+        </div>
+        <div class="w3-container w3-margin">
+            <form id="formulario">
+                <fieldset>
+                    <legend>Novo parágrafo</legend> <textarea id="paragrafo" name="paragrafo" cols="80" rows="3"></textarea>
+                </fieldset>
+                <p><input class="w3-button w3-pale-blue w3-border" id="botao_sub" type="button" value="Submeter" style="margin-right:20px"><button class="w3-button w3-pale-blue w3-border" id="botao_rem" type="reset" value="Limpar"><span>Limpar</span></button></p>
+            </form>
+        </div>
+        <div class="w3-panel w3-padding-16 w3-pale-blue"></div>
+    </div>
+    <div class="w3-card w3-margin">
+        <ul class="w3-ul" id="paragrafos">
+        </ul>
+    </div>
+    <footer class="w3-container w3-cyan">
+        <address>2022 © Maria Ramos</address>
+    </footer>
+</body>
+
+</html>

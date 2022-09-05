@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc>
     <meta>
-        <titulo>TPC7: CLAV - Classificação e Avaliação da Informação Pública </titulo>
+        <titulo>TPC7: Utilização da API do CLAV (Classificação e Avaliação da Informação Pública) por servidor web</titulo>
         <data>2022-04-12</data>
         <autor>
             <id>pg47483</id>
@@ -27,24 +27,9 @@
             <texto>Pasta gerada pelo Express. Os ficheiros desta pasta servem para a geração do HTML.</texto>
         </resultado>
         <resultado>
-            <url>views/codigo.pug</url>
-            <texto>Template HTML para a página de cada classe.</texto>
-        </resultado>
-        <resultado>
-            <url>views/index.pug</url>
-            <texto>Template HTML para a página inicial.</texto>
-        </resultado>
-        <resultado>
-            <url>views/error.pug</url>
-            <texto>Template HTML para a apresentação de erros do servidor.</texto>
-        </resultado>
         <resultado>
             <url>routes</url>
             <texto>Pasta gerada pelo Express. Contém as rotas da aplicação.</texto>
-        </resultado>
-        <resultado>
-            <url>routes/index.js</url>
-            <texto>Definição da rota principal e das rotas que partem da mesma.</texto>
         </resultado>
         <resultado>
             <url>app.js</url>
@@ -55,4 +40,10 @@
             <texto>Chave de acesso à API do CLAV.</texto>
         </resultado>
     </resultados>
+    <execucao>
+        <comandos>
+            <comando>npm i</comando>
+            <comando>npm start</comando>
+        </comandos>
+    </execucao>
 </doc>
